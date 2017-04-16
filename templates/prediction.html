@@ -8,6 +8,14 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+
 <!-- Navigation bar -->
 <nav class="navbar navbar-inverse navbar-static-top no-top  " role="navigation">
 
@@ -26,9 +34,27 @@
 	</div>
 </nav>
 
-<!--putting cover picture-->
-<div class="page-header no-margin no-padding" >
-	<div class="container" style="width:100%;">
-	<img src="{{url_for('static',filename='cover.png')}}" class="img-responsive" width="100%">
-	</div>
+
+<div>
+    <table class="table table-bordered table-striped table-hover">
+      <tr>
+          <th>Movie ID</th>
+          <th>Movie Name</th>
+          <th>Movie Rating</th>
+          <th>Movie Revenue</th>
+          <th>Prediction Result</th>
+      </tr>
+
+      {% for each_movie in data %}
+      <tr class="info">
+          <td>{{ each_movie[0] }}</td>
+          <td>{{ each_movie[1] }}</td>
+          <td>{{ each_movie[2] }}</td>
+          <td>{{ each_movie[3] }}</td>
+          <td>{{ each_movie[4] }}</td>
+      </tr>
+       {% endfor %}
+
+    </table>
+
 </div>

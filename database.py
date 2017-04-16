@@ -9,7 +9,8 @@ def get_db():
 
 def insert_db(data):
     session = get_db()
-    session.execute("INSERT INTO users (id,name,rating,revenue) VALUES (%s,%s,%s,%s)", (int(data[0]), str(data[1]), int(data[2]), int(data[3])))
+    d = (int(data[0]), str(data[1]), int(data[2]), int(data[3]))
+    session.execute("INSERT INTO users (id,name,rating,revenue) VALUES (%s,%s,%s,%s)", d)
     # cql = ("INSERT INTO users "
     # "(id,name,rating,revenue) "
     # "VALUES (%(id)s, %(name)s, %(rating)s, %(revenue)s)")
@@ -22,6 +23,14 @@ def insert_db(data):
     #     }
     #
     # session.execute(cql, d)
+
+def read_data_from_database():
+    session = get_db()
+    data = session.execute("SELECT * FROM USERS")
+    return data
+
+
+
 
 
 
