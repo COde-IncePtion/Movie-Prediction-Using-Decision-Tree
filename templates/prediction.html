@@ -16,6 +16,23 @@
 </head>
 
 
+
+<!--css for delete button-->
+<style>
+    .icon-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    }
+    th{
+    align="center";
+    }
+
+</style>
+
 <!-- Navigation bar -->
 <nav class="navbar navbar-inverse navbar-static-top no-top  " role="navigation">
 
@@ -27,7 +44,8 @@
                     <li><a href="/">Home</a></li>
 					<li><a href="/insert">Insert</a></li>
 					<li><a href="/prediction">Prediction</a></li>
-					<li><a href="#">Reports</a></li>
+					<li><a href="/report">Reports</a></li>
+
 				</ul>
 			</div>
 
@@ -36,23 +54,28 @@
 
 
 <div>
-    <table class="table table-bordered table-striped table-hover">
+    <table style="width:80%;margin-left:10%;margin-top:10%;" class="table table-bordered table-striped table-hover">
       <tr>
           <th>Movie ID</th>
           <th>Movie Name</th>
           <th>Movie Rating</th>
           <th>Movie Revenue</th>
           <th>Prediction Result</th>
+          <th>Delete</th>
       </tr>
 
       {% for each_movie in data %}
-      <tr class="info">
-          <td>{{ each_movie[0] }}</td>
-          <td>{{ each_movie[1] }}</td>
-          <td>{{ each_movie[2] }}</td>
-          <td>{{ each_movie[3] }}</td>
-          <td>{{ each_movie[4] }}</td>
-      </tr>
+           <form class="form-horizontal" method="POST" action="/delete" >
+              <input type="hidden" name="mid" value="{{ each_movie[0] }}">
+              <tr class="{{ each_movie[5] }}">
+                  <td>{{ each_movie[0] }}</td>
+                  <td>{{ each_movie[1] }}</td>
+                  <td>{{ each_movie[2] }}</td>
+                  <td>{{ each_movie[3] }}</td>
+                  <td>{{ each_movie[4] }}</td>
+                  <td><center><button class="icon-button" type="submit"><span style="color:green;" class="glyphicon glyphicon-trash"></span></button></center></td>
+              </tr>
+           </form>
        {% endfor %}
 
     </table>

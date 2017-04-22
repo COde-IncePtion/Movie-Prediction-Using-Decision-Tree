@@ -1,5 +1,5 @@
-from flask import Flask , render_template ,request
-from database import insert_db , read_data_from_database
+from flask import Flask, render_template, request
+from database import insert_db, read_data_from_database, delete_db
 from ML_prediction import predict
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def home():
 def insert():
     return render_template("insert.html")
 
-@app.route("/insertmovie",methods=['POST'])
+@app.route("/insertmovie", methods=['POST'])
 def insertmovie():
     # inserting the movies details in the cassandra database
     movie_id = request.form['mid']
@@ -25,20 +25,27 @@ def insertmovie():
 @app.route("/prediction")
 def prediction():
     data = read_data_from_database()
-    print type(data[0].id)
-    print type(data[0].name)
-    print type(data[0].rating)
-    print type(data[0].revenue)
     result = list()
+    i = 0
+    color_class = ["info", "danger", "warning", "active", "success"]
     for each_movie in data:
         res = predict([each_movie.rating, each_movie.revenue])
-        result.append([each_movie.id, each_movie.name, each_movie.rating, each_movie.revenue, res])
+        result.append([each_movie.id, each_movie.name, each_movie.rating, each_movie.revenue, res, color_class[i % 5]])
+        i = i + 1
     return render_template("prediction.html", data=result)
 
 
+@app.route("/report")
+def report():
+    return render_template("report.html")
+
+@app.route("/delete", methods=['POST'])
+def delete():
+    movie_id = request.form['mid']
+    print type(movie_id)
+    delete_db(int(movie_id))
+    return prediction()
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
 
