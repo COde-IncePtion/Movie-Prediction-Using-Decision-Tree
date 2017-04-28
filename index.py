@@ -42,7 +42,6 @@ def report():
 @app.route("/delete", methods=['POST'])
 def delete():
     movie_id = request.form['mid']
-    print type(movie_id)
     delete_db(int(movie_id))
     return prediction()
 
